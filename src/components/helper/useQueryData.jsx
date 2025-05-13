@@ -13,7 +13,7 @@ const useQueryData = (
     queryKey: [key, id],
     queryFn: async () => await queryData(endpoint, method, fd),
     retry: false,
-    refetchOnWindowFocus,
+    refetchOnWindowFocus: refetchOnWindowFocus,
     cacheTime: 200,
   });
 };

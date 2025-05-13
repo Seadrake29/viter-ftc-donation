@@ -50,13 +50,13 @@ export const developerNavigation = [
       {
         name: "category",
         code: "category",
-        link: "/category",
+        link: "/settings/category",
       },
 
       {
         name: "designation",
         code: "designation",
-        link: "/designation",
+        link: "/settings/designation",
       },
 
       {

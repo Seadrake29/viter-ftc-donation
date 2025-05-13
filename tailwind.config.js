@@ -11,6 +11,7 @@ export default {
       },
     },
     keyframes: {
+      bounce: {},
       shake: {
         "0%": { transform: "translateX(0px)" },
         "25%": { transform: "translateX(2px)" },

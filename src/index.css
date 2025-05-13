@@ -113,7 +113,7 @@
     @apply opacity-50 hover:bg-primary hover:text-white hover:border-primary;
   }
   .btn-modal-cancel {
-    @apply flex items-center justify-center text-dark gap-2 px-3 py-1.5 bg-white rounded-md border-gray-300 border w-full;
+    @apply flex items-center justify-center text-dark gap-2 px-3 py-1.5 bg-gray-200 rounded-md border-gray-300 border w-full;
   }
   .btn-modal-cancel:disabled {
     @apply opacity-50 hover:bg-white hover:text-dark hover:border-gray-300;
