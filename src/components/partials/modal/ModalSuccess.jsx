@@ -21,8 +21,6 @@ const ModalSuccess = () => {
     }, 3000);
   }, []);
 
-  console.log("asdas", store.message);
-
   return (
     <>
       <div

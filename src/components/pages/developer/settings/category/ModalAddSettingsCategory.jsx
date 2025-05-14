@@ -44,6 +44,8 @@ const ModalAddSettingsCategory = ({ itemEdit, setIsModal }) => {
   const initVal = {
     category_name: itemEdit ? itemEdit.category_name : "",
     category_description: itemEdit ? itemEdit.category_description : "",
+
+    category_name_old: itemEdit ? itemEdit.category_description : "",
   };
   const yupSchema = Yup.object({
     category_name: Yup.string().required("required"),
@@ -80,7 +82,6 @@ const ModalAddSettingsCategory = ({ itemEdit, setIsModal }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              console.log(values);
               mutation.mutate(values);
             }}
           >
@@ -94,7 +95,7 @@ const ModalAddSettingsCategory = ({ itemEdit, setIsModal }) => {
                           label="Name"
                           type="text"
                           name="category_name"
-                          disable={false}
+                          disabled={false}
                         />
                       </div>
                       <div className="relative mt-3 mb-5">
@@ -102,7 +103,7 @@ const ModalAddSettingsCategory = ({ itemEdit, setIsModal }) => {
                           label="Description"
                           type="text"
                           name="category_description"
-                          disable={false}
+                          disabled={false}
                         />
                       </div>
                     </div>

@@ -17,7 +17,7 @@ const SettingsCategory = () => {
     setIsModalCategory(true);
   };
 
-  console.log(isModalCategory);
+  
 
   return (
     <>

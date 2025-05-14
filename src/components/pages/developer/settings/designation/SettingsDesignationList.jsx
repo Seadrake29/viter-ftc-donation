@@ -15,6 +15,7 @@ import {
 import ModalArchive from "../../../../partials/modal/ModalArchive";
 import ModalRestore from "../../../../partials/modal/ModalRestore";
 import ModalDelete from "../../../../partials/modal/ModalDelete";
+import { getCategoryDataById } from "./function";
 
 const SettingsDesignationList = ({ setItemEdit, setIsModal }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -23,6 +24,20 @@ const SettingsDesignationList = ({ setItemEdit, setIsModal }) => {
   let count = 1;
 
   const [isLoaded, setIsLoaded] = React.useState(false);
+
+  const {
+    isLoading: isLoadingCategory,
+    isFetching: isFetchingCategory,
+    error: isErrorCategory,
+    data: category,
+  } = useQueryData(
+    `/rest/v1/controllers/developer/settings/category/category.php`,
+    "get",
+    "category",
+    {},
+    null,
+    true
+  );
 
   const {
     isLoading,
@@ -70,7 +85,7 @@ const SettingsDesignationList = ({ setItemEdit, setIsModal }) => {
               <tr>
                 <th className="w-[3rem]">#</th>
                 <th className="w-[3rem]">Status</th>
-                <th className="w-[40rem]">Name</th>
+                <th className="w-[35rem]">Name</th>
                 <th className="w-[15rem]">Category</th>
                 <th colSpan="100%"></th>
               </tr>
@@ -109,6 +124,10 @@ const SettingsDesignationList = ({ setItemEdit, setIsModal }) => {
               {/* IF DATA HAS COUNT */}
               {designation?.count > 0 &&
                 designation.data.map((item, key) => {
+                  const categoryData = getCategoryDataById(
+                    item.designation_category_id,
+                    category
+                  );
                   return (
                     <tr key={key} className="group relative">
                       <td>{count++}.</td>
@@ -120,6 +139,11 @@ const SettingsDesignationList = ({ setItemEdit, setIsModal }) => {
                         )}
                       </td>
                       <td>{item.designation_name}</td>
+                      <td className="max-w-[6rem] truncate">
+                        {categoryData == null
+                          ? "Unspecified"
+                          : categoryData.category_name}
+                      </td>
                       <td colSpan="100%">
                         <div className="flex gap-x-3 items-center justify-end pr-1">
                           {item.designation_is_active == 1 ? (
