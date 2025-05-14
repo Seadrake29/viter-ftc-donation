@@ -62,7 +62,7 @@ export const developerNavigation = [
       {
         name: "notfication",
         code: "notfication",
-        link: "/notfication",
+        link: "/settings/notfication",
       },
 
       {
