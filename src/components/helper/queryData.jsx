@@ -22,3 +22,5 @@ export const queryData = (endpoint, method = "get", fd = {}) => {
 
   return data;
 };
+
+

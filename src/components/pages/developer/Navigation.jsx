@@ -70,7 +70,7 @@ const Navigation = ({ menu = "", subMenu = "" }) => {
                                   className={`border-l-2 pl-3 capitalize border-transparent hover:border-accent ${
                                     subMenu === subItem.code
                                       ? "border-accent text-accent"
-                                      : ""
+                                      : "border-transparent"
                                   }`}
                                 >
                                   {subItem.name}
