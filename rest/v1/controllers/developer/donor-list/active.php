@@ -1,10 +1,10 @@
 <?php
 // set http header
-require '../../../../core/header.php';
+require '../../../core/header.php';
 // use needed function
-require '../../../../core/functions.php';
+require '../../../core/functions.php';
 // use model
-require '../donor-list/donor-list.php';
+require '../../../models/developer/donor-list/DonorList.php';
 // check database conection
 $conn = null;
 $conn = checkDbConnection();

@@ -4,22 +4,22 @@ import Navigation from "../Navigation";
 import BreadCrumbs from "../../../partials/BreadCrumbs";
 import { FaPlus } from "react-icons/fa6";
 import Footer from "../../../partials/Footer";
-import DonorListTable from "./DonorListTable";
-import ModalAddSettingsDonor from "./ModalAddSettingsDonor";
+import ChildrenListTable from "./ChildrenListTable";
+import ModalAddSettingsChildren from "./ModalAddSettingsChildren";
 
-const DonorList = () => {
+const ChildrenList = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
-  const [isModalDonor, setIsModalDonor] = React.useState(false);
+  const [isModalChildren, setIsModalChildren] = React.useState(false);
 
   const handleAdd = () => {
     setItemEdit(null);
-    setIsModalDonor(true);
+    setIsModalChildren(true);
   };
 
   return (
     <>
       <Header />
-      <Navigation menu="donor" />
+      <Navigation menu="children-list" />
       {/* FOR TABLE */}
       <div className="wrapper">
         {/* BREADCRUMBS OR ADD BUTTON */}
@@ -37,11 +37,11 @@ const DonorList = () => {
 
         {/* CONTENT */}
         <div className="pb-8">
-          <h2 className="text-base">Donor</h2>
+          <h2 className="text-base">Children</h2>
           <div className="pt-3">
-            <DonorListTable
+            <ChildrenListTable
               setItemEdit={setItemEdit}
-              setIsModal={setIsModalDonor}
+              setIsModal={setIsModalChildren}
             />
           </div>
         </div>
@@ -49,10 +49,10 @@ const DonorList = () => {
         {/* FOOTER */}
         <Footer />
 
-        {isModalDonor && (
-          <ModalAddSettingsDonor
+        {isModalChildren && (
+          <ModalAddSettingsChildren
             itemEdit={itemEdit}
-            setIsModal={setIsModalDonor}
+            setIsModal={setIsModalChildren}
           />
         )}
       </div>
@@ -60,4 +60,4 @@ const DonorList = () => {
   );
 };
 
-export default DonorList;
+export default ChildrenList;

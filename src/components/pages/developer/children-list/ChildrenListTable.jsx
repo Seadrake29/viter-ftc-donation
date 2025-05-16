@@ -20,7 +20,7 @@ import ModalArchive from "../../../partials/modal/ModalArchive";
 import ModalDelete from "../../../partials/modal/ModalDelete";
 import ModalRestore from "../../../partials/modal/ModalRestore";
 
-const DonorListTable = ({ setItemEdit, setIsModal }) => {
+const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isActive, setIsActive] = React.useState("");
   const [onSearch, setOnSearch] = React.useState(false);
@@ -299,4 +299,4 @@ const DonorListTable = ({ setItemEdit, setIsModal }) => {
   );
 };
 
-export default DonorListTable;
+export default ChildrenListTable;

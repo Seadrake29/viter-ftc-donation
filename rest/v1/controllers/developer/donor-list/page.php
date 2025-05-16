@@ -1,7 +1,7 @@
 <?php
 
-require '../../../core/header.php';
-require '../../../core/functions.php';
+require_once '../../../core/header.php';
+require_once '../../../core/functions.php';
 require '../../../models/developer/donor-list/DonorList.php';
 
 $conn = null;

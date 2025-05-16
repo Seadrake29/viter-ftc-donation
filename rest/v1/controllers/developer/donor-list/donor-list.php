@@ -1,8 +1,8 @@
 <?php
 //  set http header
-require '../../../core/header.php';
+require_once '../../../core/header.php';
 // use needed functions
-require '../../../core/functions.php';
+require_once '../../../core/functions.php';
 // use needed models
 require '../../../models/developer/donor-list/DonorList.php';
 $body = file_get_contents("php://input");

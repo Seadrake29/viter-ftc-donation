@@ -64,7 +64,7 @@ class Notification
             ]);
             $this->lastInsertedId = $this->connection->lastInsertId();
         } catch (PDOException $ex) {
-            returnError($ex);
+       
             $query = false;
         }
         return $query;
@@ -102,7 +102,7 @@ class Notification
                 "notification_aid" => $this->notification_aid,
             ]);
         } catch (PDOException $ex) {
-            returnError($ex);
+        
             $query = false;
         }
         return $query;

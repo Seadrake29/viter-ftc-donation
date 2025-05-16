@@ -136,63 +136,63 @@ function checkReadQuery($query, $total_result, $object_total, $object_start)
 function checkCreate($object)
 {
     $query = $object->create();
-    checkQuery($query, "There's a problem with you request. (core create)");
+    checkQuery($query, "MALI ANG MODELS MO. (core create)");
     return $query;
 }
 
 function checkReadAll($object)
 {
     $query = $object->readAll();
-    checkQuery($query, "There's a problem with you request. (core readAll)");
+    checkQuery($query, "MALI ANG MODELS MO. (core readAll)");
     return $query;
 }
 
 function checkReadLimit($object)
 {
     $query = $object->readLimit();
-    checkQuery($query, "There's a problem with you request. (core readLimit)");
+    checkQuery($query, "MALI ANG MODELS MO. (core readLimit)");
     return $query;
 }
 
 function checkSearch($object)
 {
     $query = $object->search();
-    checkQuery($query, "There's a problem with you request. (core search)");
+    checkQuery($query, "MALI ANG MODELS MO. (core search)");
     return $query;
 }
 
 function checkReadById($object)
 {
     $query = $object->readById();
-    checkQuery($query, "There's a problem with you request. (core readById)");
+    checkQuery($query, "MALI ANG MODELS MO. (core readById)");
     return $query;
 }
 
 function checkReadKey($object)
 {
     $query = $object->readKey();
-    checkQuery($query, "There's a problem with you request. (core readKey)");
+    checkQuery($query, "MALI ANG MODELS MO. (core readKey)");
     return $query;
 }
 
 function checkUpdate($object)
 {
     $query = $object->update();
-    checkQuery($query, "There's a problem with you request. (core update)");
+    checkQuery($query, "MALI ANG MODELS MO. (core update)");
     return $query;
 }
 
 function checkDelete($object)
 {
     $query = $object->delete();
-    checkQuery($query, "There's a problem with you request. (core delete)");
+    checkQuery($query, "MALI ANG MODELS MO. (core delete)");
     return $query;
 }
 
 function checkActive($object)
 {
     $query = $object->active();
-    checkQuery($query, "There's a problem with you request. (core active)");
+    checkQuery($query, "MALI ANG MODELS MO. (core active)");
     return $query;
 }
 
@@ -287,6 +287,24 @@ function compareName(
         isNameExist($object, $new_name);
     }
 }
+
+function isEmailExist($object, $email)
+{
+    $query = $object->checkEmail();
+    $count = $query->rowCount();
+    checkExistence($count, "{$email} email already exists.");
+}
+
+function compareEmail(
+    $object,
+    $new_email,
+    $old_email
+) {
+    if (strtolower($new_email) != strtolower($old_email)) {
+        isEmailExist($object, $new_email);
+    }
+}
+
 
 function isAssociated($object)
 {

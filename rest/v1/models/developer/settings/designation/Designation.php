@@ -60,7 +60,7 @@ class Designation
             ]);
             $this->lastInsertedId = $this->connection->lastInsertId();
         } catch (PDOException $ex) {
-            returnError($ex);
+        
             $query = false;
         }
         return $query;
@@ -98,7 +98,7 @@ class Designation
                 "designation_aid" => $this->designation_aid,
             ]);
         } catch (PDOException $ex) {
-            returnError($ex);
+     
             $query = false;
         }
         return $query;

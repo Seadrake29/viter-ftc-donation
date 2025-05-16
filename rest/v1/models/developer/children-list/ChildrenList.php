@@ -1,20 +1,18 @@
 <?php
 
-class DonorList
+class ChildrenList
 {
-    public $donor_list_aid;
-    public $donor_list_is_active;
-    public $donor_list_first_name;
-    public $donor_list_last_name;
-    public $donor_list_email;
-    public $donor_list_contact_number;
-    public $donor_list_address;
-    public $donor_list_city;
-    public $donor_list_state_province;
-    public $donor_list_country;
-    public $donor_list_zip;
-    public $donor_list_created;
-    public $donor_list_updated;
+    public $children_list_aid;
+    public $children_list_is_active;
+    public $children_list_first_name;
+    public $children_list_last_name;
+    public $children_list_birthdate;
+    public $children_list_age;
+    public $children_list_donation;
+    public $children_list_story;
+
+    public $children_list_created;
+    public $children_list_updated;
 
     public $start;
     public $total;
@@ -23,38 +21,38 @@ class DonorList
     public $connection;
     public $lastInsertedId;
 
-    public $tblDonorList;
+    public $tblChildrenList;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblDonorList = 'ftcd_donor_list';
+        $this->tblChildrenList = 'ftcd_children_list';
     }
 
     public function create()
     {
         try {
-            $sql = "insert into {$this->tblDonorList}";
-            $sql .= "( donor_list_is_active,";
-            $sql .= " donor_list_first_name,";
-            $sql .= " donor_list_last_name,";
-            $sql .= " donor_list_email,";
-            $sql .= " donor_list_created,";
-            $sql .= " donor_list_updated ) values ( ";
-            $sql .= ":donor_list_is_active, ";
-            $sql .= ":donor_list_first_name, ";
-            $sql .= ":donor_list_last_name, ";
-            $sql .= ":donor_list_email, ";
-            $sql .= ":donor_list_created, ";
-            $sql .= ":donor_list_updated ) ";
+            $sql = "insert into {$this->tblChildrenList}";
+            $sql .= "( children_list_is_active,";
+            $sql .= " children_list_first_name,";
+            $sql .= " children_list_last_name,";
+            $sql .= " children_list_birthdate,";
+            $sql .= " children_list_created,";
+            $sql .= " children_list_updated ) values ( ";
+            $sql .= ":children_list_is_active, ";
+            $sql .= ":children_list_first_name, ";
+            $sql .= ":children_list_last_name, ";
+            $sql .= ":children_list_birthdate, ";
+            $sql .= ":children_list_created, ";
+            $sql .= ":children_list_updated ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "donor_list_is_active" => $this->donor_list_is_active,
-                "donor_list_first_name" => $this->donor_list_first_name,
-                "donor_list_last_name" => $this->donor_list_last_name,
-                "donor_list_email" => $this->donor_list_email,
-                "donor_list_created" => $this->donor_list_created,
-                "donor_list_updated" => $this->donor_list_updated,
+                "children_list_is_active" => $this->children_list_is_active,
+                "children_list_first_name" => $this->children_list_first_name,
+                "children_list_last_name" => $this->children_list_last_name,
+                "children_list_birthdate" => $this->children_list_birthdate,
+                "children_list_created" => $this->children_list_created,
+                "children_list_updated" => $this->children_list_updated,
             ]);
 
             $this->lastInsertedId = $this->connection->lastInsertId();
@@ -68,24 +66,21 @@ class DonorList
     {
         try {
             $sql = "select ";
-            $sql .= "donor_list_aid, ";
-            $sql .= "donor_list_is_active, ";
-            $sql .= "donor_list_first_name, ";
-            $sql .= "donor_list_last_name, ";
-            $sql .= "donor_list_email, ";
-            $sql .= "donor_list_contact_number, ";
-            $sql .= "donor_list_address, ";
-            $sql .= "donor_list_city, ";
-            $sql .= "donor_list_state_province, ";
-            $sql .= "donor_list_country, ";
-            $sql .= "donor_list_zip, ";
-            $sql .= "donor_list_created, ";
-            $sql .= "donor_list_updated ";
-            $sql .= "from {$this->tblDonorList} ";
+            $sql .= "children_list_aid, ";
+            $sql .= "children_list_is_active, ";
+            $sql .= "children_list_first_name, ";
+            $sql .= "children_list_last_name, ";
+            $sql .= "children_list_birthdate, ";
+            $sql .= "children_list_age, ";
+            $sql .= "children_list_donation, ";
+            $sql .= "children_list_story, ";
+            $sql .= "children_list_created, ";
+            $sql .= "children_list_updated ";
+            $sql .= "from {$this->tblChildrenList} ";
             $sql .= "order by ";
-            $sql .= "donor_list_is_active desc, ";
-            $sql .= "donor_list_last_name asc, ";
-            $sql .= "donor_list_first_name asc ";
+            $sql .= "children_list_is_active desc, ";
+            $sql .= "children_list_last_name asc, ";
+            $sql .= "children_list_first_name asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -97,24 +92,21 @@ class DonorList
     {
         try {
             $sql = "select ";
-            $sql .= "donor_list_aid, ";
-            $sql .= "donor_list_is_active, ";
-            $sql .= "donor_list_first_name, ";
-            $sql .= "donor_list_last_name, ";
-            $sql .= "donor_list_email, ";
-            $sql .= "donor_list_contact_number, ";
-            $sql .= "donor_list_address, ";
-            $sql .= "donor_list_city, ";
-            $sql .= "donor_list_state_province, ";
-            $sql .= "donor_list_country, ";
-            $sql .= "donor_list_zip, ";
-            $sql .= "donor_list_created, ";
-            $sql .= "donor_list_updated ";
-            $sql .= "from {$this->tblDonorList} ";
+            $sql .= "children_list_aid, ";
+            $sql .= "children_list_is_active, ";
+            $sql .= "children_list_first_name, ";
+            $sql .= "children_list_last_name, ";
+            $sql .= "children_list_birthdate, ";
+            $sql .= "children_list_age, ";
+            $sql .= "children_list_donation, ";
+            $sql .= "children_list_story, ";
+            $sql .= "children_list_created, ";
+            $sql .= "children_list_updated ";
+            $sql .= "from {$this->tblChildrenList} ";
             $sql .= "order by ";
-            $sql .= "donor_list_is_active desc, ";
-            $sql .= "donor_list_last_name asc, ";
-            $sql .= "donor_list_first_name asc ";
+            $sql .= "children_list_is_active desc, ";
+            $sql .= "children_list_last_name asc, ";
+            $sql .= "children_list_first_name asc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
@@ -132,34 +124,31 @@ class DonorList
     {
         try {
             $sql = "select ";
-            $sql .= "donor_list_aid, ";
-            $sql .= "donor_list_is_active, ";
-            $sql .= "donor_list_first_name, ";
-            $sql .= "donor_list_last_name, ";
-            $sql .= "donor_list_email, ";
-            $sql .= "donor_list_contact_number, ";
-            $sql .= "donor_list_address, ";
-            $sql .= "donor_list_city, ";
-            $sql .= "donor_list_state_province, ";
-            $sql .= "donor_list_country, ";
-            $sql .= "donor_list_zip, ";
-            $sql .= "donor_list_created, ";
-            $sql .= "donor_list_updated ";
-            $sql .= "from {$this->tblDonorList} ";
+            $sql .= "children_list_aid, ";
+            $sql .= "children_list_is_active, ";
+            $sql .= "children_list_first_name, ";
+            $sql .= "children_list_last_name, ";
+            $sql .= "children_list_birthdate, ";
+            $sql .= "children_list_age, ";
+            $sql .= "children_list_donation, ";
+            $sql .= "children_list_story, ";
+            $sql .= "children_list_created, ";
+            $sql .= "children_list_updated ";
+            $sql .= "from {$this->tblChildrenList} ";
             $sql .= "where ";
-            $sql .= "donor_list_last_name like :donor_list_last_name ";
-            $sql .= "or donor_list_email like :donor_list_email ";
+            $sql .= "children_list_last_name like :children_list_last_name ";
+            $sql .= "or children_list_first_name like :children_list_first_name ";
             $sql .= "order by ";
-            $sql .= "donor_list_is_active desc, ";
-            $sql .= "donor_list_last_name asc, ";
-            $sql .= "donor_list_first_name asc ";
+            $sql .= "children_list_is_active desc, ";
+            $sql .= "children_list_last_name asc, ";
+            $sql .= "children_list_first_name asc ";
 
             $query = $this->connection->prepare($sql);
             $query->execute([
                 // est
                 // test
-                'donor_list_last_name' => "%{$this->search}%",
-                'donor_list_email' => "%{$this->search}%"
+                'children_list_last_name' => "%{$this->search}%",
+                'children_list_first_name' => "%{$this->search}%"
             ]);
         } catch (PDOException $ex) {
             $query = false;

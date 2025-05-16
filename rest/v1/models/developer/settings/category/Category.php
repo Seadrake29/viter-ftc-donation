@@ -86,7 +86,7 @@ class Category
                 "category_aid" => $this->category_aid,
             ]);
         } catch (PDOException $ex) {
-            returnError($ex);
+       
             $query = false;
         }
         return $query;
