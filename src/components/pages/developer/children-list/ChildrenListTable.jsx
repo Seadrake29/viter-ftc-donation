@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { FaArchive, FaEdit, FaHistory, FaList, FaTrash } from "react-icons/fa";
 import SearchBarWithFilterStatus from "../../../partials/SearchBarWithFilterStatus";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { queryData } from "../../../helper/queryData";
 import { queryDataInfinite } from "../../../helper/queryDataInfinite";
 import TableLoading from "../../../partials/spinners/TableLoading";
 import ServerError from "../../../partials/ServerError";
@@ -39,11 +40,11 @@ const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["donor-list", search.current.value, store.isSearch, isActive],
+    queryKey: ["children-list", search.current.value, store.isSearch, isActive],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/rest/v1/controllers/developer/donor-list/search.php`, // url search
-        `/rest/v1/controllers/developer/donor-list/page.php?start=${pageParam}`, // list page
+        `/rest/v1/controllers/developer/children-list/search.php`, // url search
+        `/rest/v1/controllers/developer/children-list/page.php?start=${pageParam}`, // list page
         store.isSearch || isFilter, // search boolean
         {
           searchValue: search?.current?.value,
@@ -70,25 +71,21 @@ const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
 
   const handleArchive = (item) => {
     setDataItem(item);
-    setId(item.donor_list_aid);
+    setId(item.children_list_aid);
     dispatch(setArchive(true));
-    console.log(item.donor_list_aid);
   };
 
   const handleRestore = (item) => {
     setDataItem(item);
-    setId(item.donor_list_aid);
+    setId(item.children_list_aid);
     dispatch(setRestore(true));
   };
 
   const handleDelete = (item) => {
     setDataItem(item);
-    setId(item.donor_list_aid);
+    setId(item.children_list_aid);
     dispatch(setDelete(true));
   };
-
-  const donorCount =
-    result?.pages?.reduce((acc, page) => acc + page.data.length, 0) || 0;
 
   React.useEffect(() => {
     if (inView) {
@@ -132,7 +129,12 @@ const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
           {/* COUNT OF DATA */}
           <div className="flex items-center gap-x-2">
             <FaList />
-            <span>{donorCount}</span>
+            <span>
+              {result?.pages.reduce(
+                (total, page) => total + page.data.length,
+                0
+              ) ?? 0}
+            </span>
           </div>
         </div>
         <div className="relative">
@@ -156,8 +158,11 @@ const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
             <tr>
               <th className="w-[1rem] text-center">#</th>
               <th className="w-[2rem]">Status</th>
-              <th className="w-[10rem]">Name</th>
-              <th className="">Email</th>
+              <th className="w-[20rem]">Name</th>
+              <th className="w-[20rem]">Birthdate</th>
+              <th className="w-[10rem]">Age</th>
+              <th className="w-[20rem]">Residency Status</th>
+              <th className="w-[10rem]">Donation Limit</th>
               <th colSpan="100%"></th>
             </tr>
           </thead>
@@ -185,23 +190,37 @@ const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
+                  // Calculate age dynamically
+                  const birthDate = new Date(item.children_list_birthdate);
+                  const today = new Date();
+                  let age = today.getFullYear() - birthDate.getFullYear();
+                  const m = today.getMonth() - birthDate.getMonth();
+                  if (
+                    m < 0 ||
+                    (m === 0 && today.getDate() < birthDate.getDate())
+                  ) {
+                    age--;
+                  }
                   return (
                     <tr key={key} className="relative group cursor-pointer">
                       <td className="text-center">{count++}.</td>
                       <td>
-                        {item.donor_list_is_active == 1 ? (
+                        {item.children_list_is_active == 1 ? (
                           <span className="text-green-600">Active</span>
                         ) : (
                           <span className="text-gray-600">Inactive</span>
                         )}
                       </td>
                       <td>
-                        {item.donor_list_last_name},{" "}
-                        {item.donor_list_first_name}
+                        {item.children_list_last_name},{" "}
+                        {item.children_list_first_name}
                       </td>
-                      <td>{item.donor_list_email}</td>
+                      <td>{item.children_list_birthdate}</td>
+                      <td>{age}</td>
+                      <td>Resident</td>
+                      <td>{item.children_list_donation}</td>
                       <td colSpan="100%">
-                        {item.donor_list_is_active == 1 ? (
+                        {item.children_list_is_active == 1 ? (
                           <>
                             <div className="flex gap-x-3 items-center justify-end mr-2">
                               <button
@@ -270,29 +289,29 @@ const ChildrenListTable = ({ setItemEdit, setIsModal }) => {
 
       {store.archive && (
         <ModalArchive
-          endpoint={`/rest/v1/controllers/developer/donor-list/active.php?donorListid=${id}`}
+          endpoint={`/rest/v1/controllers/developer/children-list/active.php?childrenListid=${id}`}
           msg={`Are you sure want to archive this record?`}
           successMsg={`Successfully Archived`}
-          queryKey={`donor-list`}
+          queryKey={`children-list`}
         />
       )}
 
       {store.delete && (
         <ModalDelete
-          endpoint={`/rest/v1/controllers/developer/donor-list/donor-list.php?donorListid=${id}`}
+          endpoint={`/rest/v1/controllers/developer/children-list/children-list.php?childrenListid=${id}`}
           msg={`Are you sure want to delete this record?`}
           successMsg={`Successfully Delete.`}
-          item={dataItem.donor_name}
-          queryKey={`donor-list`}
+          item={dataItem.children_name}
+          queryKey={`children-list`}
         />
       )}
 
       {store.restore && (
         <ModalRestore
-          endpoint={`/rest/v1/controllers/developer/donor-list/active.php?donorListid=${id}`}
-          msg={`Are you sure want to restore this record?`}
+          endpoint={`/rest/v1/controllers/developer/children-list/active.php?childrenListid=${id}`}
+          msg={`Are you sure want to archive this record?`}
           successMsg={`Successfully Restore`}
-          queryKey={`donor-list`}
+          queryKey={`children-list`}
         />
       )}
     </>

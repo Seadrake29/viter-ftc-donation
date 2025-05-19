@@ -25,13 +25,13 @@ const ModalAddSettingsChildren = ({ itemEdit, setIsModal }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/rest/v1/controllers/developer/donor-list/donor-list.php?donorListid=${itemEdit.donor_list_aid}`
-          : `/rest/v1/controllers/developer/donor-list/donor-list.php`,
+          ? `/rest/v1/controllers/developer/children-list/children-list.php?childrenListid=${itemEdit.children_list_aid}`
+          : `/rest/v1/controllers/developer/children-list/children-list.php`,
         itemEdit ? "PUT" : "POST",
         values
       ),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["donor-list"] });
+      queryClient.invalidateQueries({ queryKey: ["children-list"] });
 
       if (!data.success) {
         dispatch(setMessage(data.error));
@@ -45,26 +45,24 @@ const ModalAddSettingsChildren = ({ itemEdit, setIsModal }) => {
   });
 
   const initVal = {
-    donor_list_first_name: itemEdit ? itemEdit.donor_list_first_name : "",
-    donor_list_last_name: itemEdit ? itemEdit.donor_list_last_name : "",
-    donor_list_email: itemEdit ? itemEdit.donor_list_email : "",
-    donor_list_contact_number: itemEdit
-      ? itemEdit.donor_list_contact_number
+    children_list_first_name: itemEdit ? itemEdit.children_list_first_name : "",
+    children_list_last_name: itemEdit ? itemEdit.children_list_last_name : "",
+    children_list_birthdate: itemEdit ? itemEdit.children_list_birthdate : "",
+    children_list_age: itemEdit ? itemEdit.children_list_age : "",
+    children_list_donation: itemEdit ? itemEdit.children_list_donation : "",
+    children_list_story: itemEdit ? itemEdit.children_list_story : "",
+    children_list_first_name_old: itemEdit
+      ? itemEdit.children_list_first_name
       : "",
-    donor_list_address: itemEdit ? itemEdit.donor_list_address : "",
-    donor_list_city: itemEdit ? itemEdit.donor_list_city : "",
-    donor_list_state_province: itemEdit
-      ? itemEdit.donor_list_state_province
+    children_list_last_name_old: itemEdit
+      ? itemEdit.children_list_last_name
       : "",
-    donor_list_country: itemEdit ? itemEdit.donor_list_country : "",
-    donor_list_zip: itemEdit ? itemEdit.donor_list_zip : "",
-
-    donor_list_email_old: itemEdit ? itemEdit.donor_list_email : "",
   };
   const yupSchema = Yup.object({
-    donor_list_first_name: Yup.string().required("required"),
-    donor_list_last_name: Yup.string().required("required"),
-    donor_list_email: Yup.string().required("required"),
+    children_list_first_name: Yup.string().required("required"),
+    children_list_last_name: Yup.string().required("required"),
+    children_list_birthdate: Yup.string().required("required"),
+    children_list_donation: Yup.string().required("required"),
   });
 
   const handleClose = () => {
@@ -82,7 +80,7 @@ const ModalAddSettingsChildren = ({ itemEdit, setIsModal }) => {
     <>
       <ModalWrapperSide handleClose={handleClose} className={`${animate}`}>
         <div className="modal__header">
-          <h3>{itemEdit ? "Update" : "Add"} Donor</h3>
+          <h3>{itemEdit ? "Update" : "Add"} Children</h3>
           <button
             type="button"
             className="absolute top-0 right-0"
@@ -109,7 +107,7 @@ const ModalAddSettingsChildren = ({ itemEdit, setIsModal }) => {
                         <InputText
                           label="Last Name"
                           type="text"
-                          name="donor_list_last_name"
+                          name="children_list_last_name"
                           disabled={false}
                         />
                       </div>
@@ -117,62 +115,34 @@ const ModalAddSettingsChildren = ({ itemEdit, setIsModal }) => {
                         <InputText
                           label="First Name"
                           type="text"
-                          name="donor_list_first_name"
+                          name="children_list_first_name"
                           disabled={false}
                         />
                       </div>
                       <div className="relative mt-3 mb-5">
                         <InputText
-                          label="Email"
-                          type="Email"
-                          name="donor_list_email"
+                          label="Birthdate"
+                          type="date"
+                          name="children_list_birthdate"
                           disabled={false}
                         />
                       </div>
                       <div className="relative mt-3 mb-5">
                         <InputTextArea
-                          label="Address"
+                          label="My Story"
                           type="text"
-                          name="donor_list_address"
+                          name="children_list_story"
                           disabled={false}
                           required={false}
                         />
                       </div>
                       <div className="relative mt-3 mb-5">
                         <InputText
-                          label="City"
-                          type="text"
-                          name="donor_list_city"
+                          label="Donation Amount Limit"
+                          type="number"
+                          name="children_list_donation"
                           disabled={false}
-                          required={false}
                         />
-                        <div className="relative mt-3 mb-5">
-                          <InputText
-                            label="State/Province"
-                            type="text"
-                            name="donor_list_state_province"
-                            disabled={false}
-                            required={false}
-                          />
-                        </div>
-                        <div className="relative mt-3 mb-5">
-                          <InputText
-                            label="Country"
-                            type="text"
-                            name="donor_list_country"
-                            disabled={false}
-                            required={false}
-                          />
-                        </div>
-                        <div className="relative mt-3 mb-5">
-                          <InputText
-                            label="Zip"
-                            type="text"
-                            name="donor_list_zip"
-                            disabled={false}
-                            required={false}
-                          />
-                        </div>
                       </div>
                     </div>
                     <div className="actions">
